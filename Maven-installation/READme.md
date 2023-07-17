@@ -46,4 +46,6 @@ export PATH=$PATH:$M2_HOME/bin
 source ~/.bash_profile
 mvn -version
 ```
+## .Please make sure your running this in the OPT directory !!
+```sh
 
