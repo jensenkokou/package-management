@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Made by Engineer Kokou, This script is to customize your terminal to a Powershell Theme and install Auto-Suggestions and Syntax Highlighting 
+
+# Update package list and install prerequisites
+sudo apt update
+sudo apt install -y zsh wget git curl
+
+# Install Oh My Zsh
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" "" --unattended
+
+# Install Powerlevel10k theme
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+# Install zsh-autosuggestions plugin
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# Install zsh-syntax-highlighting plugin
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+# Change theme to Powerlevel10k
+sed -i 's/^ZSH_THEME=.*$/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
+
+# Add zsh-autosuggestions and zsh-syntax-highlighting to plugins
+sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+
+# Set Zsh as the default shell
+chsh -s $(which zsh)
+
+# Restart into Zsh
+exec zsh
